@@ -1,0 +1,89 @@
+﻿@using System.Diagnostics.Eventing.Reader
+@model FootballModel
+
+<main>
+    <h1>Form for footballer</h1>
+    <div>
+        @Html.ValidationSummary()
+        <form asp-controller="Footballer" asp-action="SetFootballer">
+            <div hidden>
+                <input asp-for="Footballer.Id">@Model.Footballer.Id</input>
+            </div>
+            <div>
+                <div>@Html.ValidationMessageFor(m => m.Footballer.FirstName)</div>
+                <a>Firstname:</a>
+                <input asp-for="Footballer.FirstName" type="text"/>
+            </div>
+            <p></p>
+            <div>
+                <div>@Html.ValidationMessageFor(m => m.Footballer.Lastname)</div>
+                <a>Lastname:</a>
+                <input asp-for="Footballer.Lastname"/>
+            </div>
+            <p></p>
+            <div>
+                <a>Gender:</a>
+                <select asp-for="Footballer.Gender">
+                    @foreach (Gender gender in Enum.GetValues(typeof(Gender)))
+                    {
+                        string line = gender == Gender.NaN ? "Choose gender" : gender.ToString();
+                        <option value="@gender">@line</option>
+                    }
+                </select>
+            </div>
+            <p></p>
+            <div>
+                <a>Command:</a>
+                <a>Write command</a>
+                <input type="text" asp-for="WrittenCommand"/>
+                <a>or select</a>
+                <select asp-for="SelectedCommand">
+                    <option value="@null">Choose command</option>
+                    @if (Model.Commands is not null)
+                    {
+                        foreach (var command in Model.Commands)
+                        {
+                            if (Model.Footballer.Command != command)
+                            {
+                                <option value="@command">@command</option>
+                            }
+                            else
+                            {
+                                <option selected value="@command">@command</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+            <p></p>
+            <div>
+                <a>Birthday:</a>
+                <input type="date" asp-for="Footballer.BirthDateTime" value="@DateTime.Today">
+            </div>
+            <p></p>
+            <div>
+                <a>Country:</a>
+                <select asp-for="Footballer.Country" title="Choose country">
+                    @foreach (Country country in Enum.GetValues(typeof(Country)))
+                    {
+                        string line = country == Country.NaN ? "Choose country" : country.ToString();
+                        <option value="@country">@line</option>
+                    }
+                </select>
+            </div>
+            <p></p>
+            <div>
+                <button type="submit">Создать футболиста</button>
+            </div>
+        </form>
+    </div>
+    <p></p>
+    <div>
+        @using(Html.BeginForm("GetFootballers", "Footballer")) {
+                <input type="submit" value="Go to second page"/>
+            }
+    </div>
+    
+</main>
+
+

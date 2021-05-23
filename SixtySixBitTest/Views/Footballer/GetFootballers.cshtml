@@ -1,0 +1,22 @@
+﻿@model List<Footballer>
+
+<h1>Footballers</h1>
+
+@foreach (var footballer in Model)
+{
+    <div>
+        <a>Firstname: @footballer.FirstName, Lastname: @footballer.Lastname, Gender: @footballer.Gender, Command: @footballer.Command, Birthday: @footballer.BirthDateTime.Day:@footballer.BirthDateTime.Month:@footballer.BirthDateTime.Year, Country: @footballer.Country.</a>
+        @using (Html.BeginForm("Index", "Footballer", new {id = footballer.Id}))
+        {
+            <input type="submit" value="Edit"/>
+        }
+    </div>
+}
+
+
+<div>
+    @using(Html.BeginForm("Index", "Footballer")) 
+    {
+        <input type="submit" value="Go to first page"/>
+    }
+</div>
