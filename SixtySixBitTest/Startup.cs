@@ -13,6 +13,7 @@ namespace SixtySixBitTest
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var a = 10;
         }
 
         public IConfiguration Configuration { get; }
